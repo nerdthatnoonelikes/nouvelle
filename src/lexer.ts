@@ -10,7 +10,7 @@ export const lexer = (contents: string) => {
     let tok = "";
     let state = 0;
     let string = "";
-    let tokens = [];
+    let tokens: string[] = [];
     for (const x of list(contents)) {
         tok += x;
         if (tok === " ") {
@@ -19,6 +19,8 @@ export const lexer = (contents: string) => {
             } else {
                 tok = " ";
             }
+        } else if (tok === "\n") {
+            tok = ""
         } else if (tok === "PRINT") {
             tokens.push("PRINT");
             tok = "";
@@ -29,6 +31,7 @@ export const lexer = (contents: string) => {
                 tokens.push(`STRING:${string}`)
                 string = "";
                 state = 0;
+                tok = "";
             };
         } else if (state === 1) {
             string += tok;
@@ -36,4 +39,4 @@ export const lexer = (contents: string) => {
         }
     }
     return tokens;
-}
+};
