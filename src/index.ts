@@ -2,7 +2,10 @@ import fs from "fs";
 import { lexer } from "./lexer";
 import { parse } from "./parser";
 
-const data = fs.readFileSync("test/main.nv", "utf-8");
+let data = fs.readFileSync("test/main.nv", "utf-8");
+
+data += "<EOF>"
 
 const toks = lexer(data);
+console.log(toks);
 parse(toks);

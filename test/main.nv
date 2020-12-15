@@ -1,1 +1,2 @@
-PRINT "hello this is working"
+print "hello world"
+print 10 + 2

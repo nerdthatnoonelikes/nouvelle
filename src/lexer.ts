@@ -10,7 +10,9 @@ export const lexer = (contents: string) => {
     let tok = "";
     let state = 0;
     let string = "";
+    let expr = "";
     let tokens: string[] = [];
+    let isexpr = 0;
     for (const x of list(contents)) {
         tok += x;
         if (tok === " ") {
@@ -19,10 +21,24 @@ export const lexer = (contents: string) => {
             } else {
                 tok = " ";
             }
-        } else if (tok === "\n") {
+        } else if (tok === "\n" || tok === "<EOF>") {
+            if (expr != "" && isexpr === 1) {
+                tokens.push(`EXPR:${expr}`); 
+                expr = "";
+            } else if (expr != "" && isexpr === 0) {
+                tokens.push(`NUM:${expr}`);
+                expr = ""
+            }
             tok = ""
-        } else if (tok === "PRINT") {
+        } else if (tok === "PRINT" || tok === "print") {
             tokens.push("PRINT");
+            tok = "";
+        } else if (tok === "0" || tok === "1" || tok === "2" || tok === "3" || tok === "4" || tok === "5" || tok === "6" || tok === "7" || tok === "8" || tok === "9") {
+            expr += tok;
+            tok = "";
+        } else if (tok === "+") {
+            isexpr = 1;
+            expr += tok;
             tok = "";
         } else if (tok === "\"") {
             if (state === 0) {

@@ -9,3 +9,7 @@ my next attempt at writing a programming language.
 ```
 PRINT "Hello, World!"
 ```
+or 
+```
+print "Hello, World!"
+```
