@@ -7,5 +7,4 @@ let data = fs.readFileSync("test/main.nv", "utf-8");
 data += "<EOF>"
 
 const toks = lexer(data);
-console.log(toks);
 parse(toks);
